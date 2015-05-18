@@ -1,13 +1,13 @@
-from datetime import datetime, date, time
-from decimal import Decimal
 import hashlib
+from datetime import date, datetime, time
+from decimal import Decimal
 from operator import itemgetter
 
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.admin import widgets
 from django.contrib.admin.options import csrf_protect_m
-from django.core.exceptions import PermissionDenied, ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.forms import fields
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -15,6 +15,9 @@ from django.template.context import RequestContext
 from django.utils import six
 from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
+from leonardo.forms import Layout, SelfHandlingForm, Tab, TabHolder
+
+from . import LazyConfig, settings
 
 try:
     from django.utils.encoding import smart_bytes
@@ -27,7 +30,6 @@ except ImportError:  # Django < 1.4
     from django.conf.urls.defaults import patterns, url
 
 
-from . import LazyConfig, settings
 
 config = LazyConfig()
 
@@ -58,27 +60,43 @@ if not six.PY3:
     })
 
 
-class ConstanceForm(forms.Form):
+
+class ConstanceForm(SelfHandlingForm):
     version = forms.CharField(widget=forms.HiddenInput)
 
     def __init__(self, initial, *args, **kwargs):
         super(ConstanceForm, self).__init__(*args, initial=initial, **kwargs)
         version_hash = hashlib.md5()
 
-        for name, (default, help_text) in settings.CONFIG.items():
-            config_type = type(default)
-            if config_type not in FIELDS:
-                raise ImproperlyConfigured(_("Constance doesn't support "
-                                             "config values of the type "
-                                             "%(config_type)s. Please fix "
-                                             "the value of '%(name)s'.")
-                                           % {'config_type': config_type,
-                                              'name': name})
-            field_class, kwargs = FIELDS[config_type]
-            self.fields[name] = field_class(label=name, **kwargs)
+        # inicialize tabs
+        self.helper.layout = Layout(TabHolder())
+
+        for group_name, group_fields in six.iteritems(settings.CONFIG_GROUPS):
+
+            tab = Tab(group_name.capitalize())
+
+            for name, (default, help_text) in group_fields.items():
+                config_type = type(default)
+                if config_type not in FIELDS:
+                    raise ImproperlyConfigured(_("Constance doesn't support "
+                                                 "config values of the type "
+                                                 "%(config_type)s. Please fix "
+                                                 "the value of '%(name)s'.")
+                                               % {'config_type': config_type,
+                                                  'name': name})
+                field_class, _kwargs = FIELDS[config_type]
+                self.fields[name] = field_class(label=name, **_kwargs)
+
+                tab.append(name)
 
             version_hash.update(smart_bytes(initial.get(name, '')))
+            self.helper.layout[0].append(tab)
         self.initial['version'] = version_hash.hexdigest()
+
+        self._wrap_all()
+
+    def handle(self):
+        pass
 
     def save(self):
         for name in settings.CONFIG:

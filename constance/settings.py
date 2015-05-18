@@ -5,6 +5,8 @@ BACKEND = getattr(settings, 'CONSTANCE_BACKEND',
 
 CONFIG = getattr(settings, 'CONSTANCE_CONFIG', {})
 
+CONFIG_GROUPS = getattr(settings, 'CONSTANCE_CONFIG_GROUPS', {})
+
 DATABASE_CACHE_BACKEND = getattr(settings, 'CONSTANCE_DATABASE_CACHE_BACKEND',
                                  None)
 
