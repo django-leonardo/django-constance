@@ -73,7 +73,7 @@ class ConstanceForm(SelfHandlingForm):
 
         for group_name, group_fields in six.iteritems(settings.CONFIG_GROUPS):
 
-            tab = Tab(group_name.capitalize())
+            tab = Tab(group_name.replace("_", " ").capitalize())
 
             for name, (default, help_text) in group_fields.items():
                 config_type = type(default)
