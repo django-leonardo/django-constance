@@ -69,7 +69,7 @@ class ConstanceForm(SelfHandlingForm):
         version_hash = hashlib.md5()
 
         # inicialize tabs
-        self.helper.layout = Layout(TabHolder())
+        self.helper.layout = Layout(TabHolder(), 'version',)
 
         for group_name, group_fields in six.iteritems(settings.CONFIG_GROUPS):
 
