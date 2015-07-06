@@ -30,7 +30,6 @@ except ImportError:  # Django < 1.4
     from django.conf.urls.defaults import patterns, url
 
 
-
 config = LazyConfig()
 
 
@@ -58,7 +57,6 @@ if not six.PY3:
         long: INTEGER_LIKE,
         unicode: STRING_LIKE,
     })
-
 
 
 class ConstanceForm(SelfHandlingForm):
@@ -100,10 +98,12 @@ class ConstanceForm(SelfHandlingForm):
 
     def save(self):
         for name in settings.CONFIG:
-            setattr(config, name, self.cleaned_data[name])
+            setattr(
+                config, name,
+                self.cleaned_data.get(name, settings.CONFIG.get(name)[0]))
 
     def clean_version(self):
-        value = self.cleaned_data['version']
+        value=self.cleaned_data['version']
         if value != self.initial['version']:
             raise forms.ValidationError(_('The settings have been modified '
                                           'by someone else. Please reload the '
@@ -114,26 +114,26 @@ class ConstanceForm(SelfHandlingForm):
 class ConstanceAdmin(admin.ModelAdmin):
 
     def get_urls(self):
-        info = self.model._meta.app_label, self.model._meta.module_name
+        info=self.model._meta.app_label, self.model._meta.module_name
         return patterns('',
-            url(r'^$',
-                self.admin_site.admin_view(self.changelist_view),
-                name='%s_%s_changelist' % info),
-            url(r'^$',
-                self.admin_site.admin_view(self.changelist_view),
-                name='%s_%s_add' % info),
-        )
+                        url(r'^$',
+                            self.admin_site.admin_view(self.changelist_view),
+                            name='%s_%s_changelist' % info),
+                        url(r'^$',
+                            self.admin_site.admin_view(self.changelist_view),
+                            name='%s_%s_add' % info),
+                        )
 
     @csrf_protect_m
-    def changelist_view(self, request, extra_context=None):
+    def changelist_view(self, request, extra_context = None):
         # First load a mapping between config name and default value
         if not self.has_change_permission(request, None):
             raise PermissionDenied
-        default_initial = ((name, default)
-            for name, (default, help_text) in settings.CONFIG.items())
+        default_initial=((name, default)
+                           for name, (default, help_text) in settings.CONFIG.items())
         # Then update the mapping with actually values from the backend
-        initial = dict(default_initial,
-            **dict(config._backend.mget(settings.CONFIG.keys())))
+        initial=dict(default_initial,
+                       **dict(config._backend.mget(settings.CONFIG.keys())))
         form = ConstanceForm(initial=initial)
         if request.method == 'POST':
             form = ConstanceForm(data=request.POST, initial=initial)
@@ -166,13 +166,13 @@ class ConstanceAdmin(admin.ModelAdmin):
                 'help_text': _(help_text),
                 'value': localize(value),
                 'modified': value != default,
-                'form_field': form[name],
+                'form_field': form.fields.get(name, None),
             })
         context['config'].sort(key=itemgetter('name'))
         context_instance = RequestContext(request,
                                           current_app=self.admin_site.name)
         return render_to_response('admin/constance/change_list.html',
-            context, context_instance=context_instance)
+                                  context, context_instance=context_instance)
 
     def has_add_permission(self, *args, **kwargs):
         return False
@@ -187,6 +187,7 @@ class ConstanceAdmin(admin.ModelAdmin):
 
 
 class Config(object):
+
     class Meta(object):
         app_label = 'constance'
         object_name = 'Config'
