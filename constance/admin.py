@@ -4,6 +4,7 @@ from decimal import Decimal
 from operator import itemgetter
 
 from django import forms
+from django.conf import settings as django_settings
 from django.contrib import admin, messages
 from django.contrib.admin import widgets
 from django.contrib.admin.options import csrf_protect_m
@@ -98,12 +99,13 @@ class ConstanceForm(SelfHandlingForm):
 
     def save(self):
         for name in settings.CONFIG:
-            setattr(
-                config, name,
-                self.cleaned_data.get(name, settings.CONFIG.get(name)[0]))
+            value = self.cleaned_data.get(name, settings.CONFIG.get(name)[0])
+            setattr(config, name, value)
+            # set to settings module
+            setattr(django_settings, name, value)
 
     def clean_version(self):
-        value=self.cleaned_data['version']
+        value = self.cleaned_data['version']
         if value != self.initial['version']:
             raise forms.ValidationError(_('The settings have been modified '
                                           'by someone else. Please reload the '
@@ -114,7 +116,7 @@ class ConstanceForm(SelfHandlingForm):
 class ConstanceAdmin(admin.ModelAdmin):
 
     def get_urls(self):
-        info=self.model._meta.app_label, self.model._meta.module_name
+        info = self.model._meta.app_label, self.model._meta.module_name
         return patterns('',
                         url(r'^$',
                             self.admin_site.admin_view(self.changelist_view),
@@ -125,14 +127,14 @@ class ConstanceAdmin(admin.ModelAdmin):
                         )
 
     @csrf_protect_m
-    def changelist_view(self, request, extra_context = None):
+    def changelist_view(self, request, extra_context=None):
         # First load a mapping between config name and default value
         if not self.has_change_permission(request, None):
             raise PermissionDenied
-        default_initial=((name, default)
+        default_initial = ((name, default)
                            for name, (default, help_text) in settings.CONFIG.items())
         # Then update the mapping with actually values from the backend
-        initial=dict(default_initial,
+        initial = dict(default_initial,
                        **dict(config._backend.mget(settings.CONFIG.keys())))
         form = ConstanceForm(initial=initial)
         if request.method == 'POST':

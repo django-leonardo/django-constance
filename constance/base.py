@@ -1,4 +1,5 @@
 from . import settings, utils
+from django.conf import settings as django_settings
 
 
 class Config(object):
@@ -15,10 +16,12 @@ class Config(object):
         except KeyError:
             raise AttributeError(key)
         result = self._backend.get(key)
-        if result is None:
-            result = default
+        # use Django settings as primary source of default
+        # for example DEBUG if is in django settings will be set as default
+        if hasattr(django_settings, key) or result is None:
+            default = getattr(django_settings, key, default)
             setattr(self, key, default)
-            return result
+            return default
         return result
 
     def __setattr__(self, key, value):

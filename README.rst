@@ -1,5 +1,14 @@
+
 Constance - Dynamic Django settings
 ===================================
+
+This is adopted version of standard library for Leonardo CMS.
+
+Additionaly features:
+
+* support for Django 1.8 +
+* basic grouping via ``CONFIG_GROUPS`` which makes tabs for django admin
+* really live settings, set every value to django settings and respect the default value from them
 
 .. image:: https://secure.travis-ci.org/jezdez/django-constance.png
     :alt: Build Status
