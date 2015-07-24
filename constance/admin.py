@@ -69,6 +69,8 @@ class ConstanceForm(SelfHandlingForm):
 
         # inicialize tabs
         self.helper.layout = Layout(TabHolder(), 'version',)
+        # format helptext as inline blocks
+        self.helper.help_text_inline = True
 
         for group_name, group_fields in six.iteritems(settings.CONFIG_GROUPS):
 
@@ -84,6 +86,7 @@ class ConstanceForm(SelfHandlingForm):
                                                % {'config_type': config_type,
                                                   'name': name})
                 field_class, _kwargs = FIELDS[config_type]
+                _kwargs['help_text'] = help_text
                 self.fields[name] = field_class(label=name, **_kwargs)
 
                 tab.append(name)
@@ -91,8 +94,6 @@ class ConstanceForm(SelfHandlingForm):
             version_hash.update(smart_bytes(initial.get(name, '')))
             self.helper.layout[0].append(tab)
         self.initial['version'] = version_hash.hexdigest()
-
-        self._wrap_all()
 
     def handle(self):
         pass
