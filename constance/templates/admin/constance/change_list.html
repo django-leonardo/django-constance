@@ -1,6 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load admin_static admin_list i18n %}
 {% load url from future %}
+{% load crispy_forms_tags %}
 
 
 {% block extrastyle %}
@@ -40,52 +41,8 @@
   <div id="content-main">
     <div class="module" id="changelist">
         <form id="changelist-form" action="" method="post">{% csrf_token %}
-            {% if form.errors %}
-            <ul class="errorlist">
-            {% endif %}
-            {% for field in form.hidden_fields %}
-                {% for error in field.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-                {{ field }}
-            {% endfor %}
-            {% if form.errors %}
-            </ul>
-            {% endif %}
-            <table cellspacing="0" id="result_list">
-                <thead>
-                <tr>
-                    <th><div class="text">{% trans "Name" %}</div></th>
-                    <th><div class="text">{% trans "Default" %}</div></th>
-                    <th><div class="text">{% trans "Value" %}</div></th>
-                    <th><div class="text">{% trans "Is modified" %}</div></th>
-                </tr>
-                </thead>
-                {% for item in config %}
-                <tr class="{% cycle 'row1' 'row2' %}">
-                    <th>{{ item.name }}
-                        <div class="help">{{ item.help_text }}</div>
-                    </th>
-                    <td>
-                        {{ item.default }}
-                    </td>
-                        <td>
-                            {{ item.form_field.errors }}
-                            {{ item.form_field }}
-                        </td>
-                    <td>
-                        {% if item.modified %}
-                            <img src="{% static 'admin/img/icon-yes.gif' %}" alt="{{ item.modified }}" />
-                        {% else %}
-                            <img src="{% static 'admin/img/icon-no.gif' %}" alt="{{ item.modified }}" />
-                        {% endif %}
-                    </td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <p class="paginator">
-            <input type="submit" name="_save" class="default" value="{% trans 'Save' %}"/>
-            </p>
+            {% crispy form %}
+            <input type="submit" name="_save" class="form-group btn-default" value="{% trans 'Save' %}"/>
         </form>
     </div>
   </div>
