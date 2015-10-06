@@ -95,8 +95,14 @@ class ConstanceForm(SelfHandlingForm):
             self.helper.layout[0].append(tab)
         self.initial['version'] = version_hash.hexdigest()
 
-    def handle(self):
-        pass
+    def handle(self, request, data):
+        for name in data.keys():
+            if not name == "version":
+                value = data.get(name, settings.CONFIG.get(name)[0])
+                setattr(config, name, value)
+                # set to settings module
+                setattr(django_settings, name, value)
+        return True
 
     def save(self):
         for name in settings.CONFIG:
