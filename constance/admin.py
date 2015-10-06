@@ -105,11 +105,12 @@ class ConstanceForm(SelfHandlingForm):
         return True
 
     def save(self):
-        for name in settings.CONFIG:
-            value = self.cleaned_data.get(name, settings.CONFIG.get(name)[0])
-            setattr(config, name, value)
-            # set to settings module
-            setattr(django_settings, name, value)
+        for key in self.cleaned_data.keys():
+            if not key == "version":
+                value = self.cleaned_data[key]
+                setattr(config, key, value)
+                # set to settings module
+                setattr(django_settings, key, value)
 
     def clean_version(self):
         value = self.cleaned_data['version']
