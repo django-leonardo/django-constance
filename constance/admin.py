@@ -73,7 +73,6 @@ class ConstanceForm(SelfHandlingForm):
         # format helptext as inline blocks
         self.helper.help_text_inline = True
 
-        raise Exception(settings.CONFIG_GROUPS)
         for group_name, group_fields in six.iteritems(settings.CONFIG_GROUPS):
 
             tab = Tab(group_name.replace("_", " ").capitalize())
