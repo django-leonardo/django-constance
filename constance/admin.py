@@ -47,6 +47,7 @@ FIELDS = {
     int: INTEGER_LIKE,
     Decimal: (fields.DecimalField, {'widget': NUMERIC_WIDGET}),
     str: STRING_LIKE,
+    list: STRING_LIKE,
     datetime: (fields.DateTimeField, {'widget': widgets.AdminSplitDateTime}),
     date: (fields.DateField, {'widget': widgets.AdminDateWidget}),
     time: (fields.TimeField, {'widget': widgets.AdminTimeWidget}),
@@ -72,6 +73,7 @@ class ConstanceForm(SelfHandlingForm):
         # format helptext as inline blocks
         self.helper.help_text_inline = True
 
+        raise Exception(settings.CONFIG_GROUPS)
         for group_name, group_fields in six.iteritems(settings.CONFIG_GROUPS):
 
             tab = Tab(group_name.replace("_", " ").capitalize())
