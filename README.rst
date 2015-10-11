@@ -16,7 +16,7 @@ Additionaly features:
 
     CONSTANCE_CONFIG = {
         'MEDIA_ENABLED': (True, 'Help Text'),
-        'MEDIA_THUMBNAILS': {
+        'MEDIA_THUMBNAILS': ({
                 'SMALL': '64x64',
                 'MEDIUM': '265x265',
             }, 'Help Text')
