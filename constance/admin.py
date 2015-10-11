@@ -18,6 +18,7 @@ from django.utils.formats import localize
 from django.utils.translation import ugettext_lazy as _
 from leonardo.forms import Layout, SelfHandlingForm, Tab, TabHolder
 
+from .forms import JSONTextArea
 from . import LazyConfig, settings
 
 try:
@@ -42,12 +43,19 @@ STRING_LIKE = (fields.CharField, {
     'required': False,
 })
 
+
+DICT_LIKE = (fields.CharField, {
+    'widget': JSONTextArea(attrs={'rows': 10, 'cols': 30}),
+    'required': False,
+})
+
 FIELDS = {
     bool: (fields.BooleanField, {'required': False}),
     int: INTEGER_LIKE,
     Decimal: (fields.DecimalField, {'widget': NUMERIC_WIDGET}),
     str: STRING_LIKE,
     list: STRING_LIKE,
+    dict: DICT_LIKE,
     datetime: (fields.DateTimeField, {'widget': widgets.AdminSplitDateTime}),
     date: (fields.DateField, {'widget': widgets.AdminDateWidget}),
     time: (fields.TimeField, {'widget': widgets.AdminTimeWidget}),

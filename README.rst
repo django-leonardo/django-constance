@@ -6,10 +6,21 @@ This is adopted version of standard library for Leonardo CMS.
 
 Additionaly features:
 
+* boolean, numbers, strings, dictionaries
 * support for Django 1.8 +
 * basic grouping via ``CONSTANCE_CONFIG_GROUPS`` which makes tabs for django admin
 * access to config keys from standard django settings
 * really live settings, set every value to django settings and respect the default value from them
+
+.. code-block:: python
+
+    CONSTANCE_CONFIG = {
+        'MEDIA_ENABLED': (True, 'Help Text'),
+        'MEDIA_THUMBNAILS': {
+                'SMALL': '64x64',
+                'MEDIUM': '265x265',
+            }, 'Help Text')
+    }
 
 .. code-block:: python
 
@@ -44,6 +55,7 @@ after setting up value in the admin to False::
     from django.conf import settings
     settings.DEBUG
     -> False
+
 
 .. image:: https://secure.travis-ci.org/jezdez/django-constance.png
     :alt: Build Status
