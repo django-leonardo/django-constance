@@ -1,0 +1,279 @@
+CHANGES
+=======
+
+* user info about save
+* typo fix
+* support for dict
+* late night issue
+* #54 from @iluminite
+* fix django admin save
+* handle
+* render form as crispy form
+* fix missed function
+* fix django related issues
+* show helptext and removed useless wrap_all
+* moved behaviour from leonardo app
+* improved feel from live settings and set every value to django settings, respect value from django settings as default
+* wtf fixes, nothing changed but this not work from this time :O
+* add version field to update form
+* humanize
+* base support for grouping
+* pep8 cleanup
+* Fixed model creation for Django1.8 ContentType change
+* master Added spanish translation
+* Increased speed of builds
+
+1.0.1
+-----
+
+* Bumped version to 1.0.1
+* Try to fix #88 by being lazy a different way
+* Fix directive name
+
+1.0
+---
+
+* Use url tag from the future to fix rendering
+* 1.0 \o/
+* Correct date
+* Docs tweaks
+* Fix minor cosmetic issue
+* Use breadcrumbs code from Django
+* More laziness for preventing import time issues
+* Use Django's own static template tag in the admin
+* Added example project requirements files
+* Get rid of old screenshots
+* Fix minor cosmetic issue with rST
+* Updated changelog
+* Pulled translations from Transifex
+* Updated base translation message catalog
+* Added Transifex config
+* Use better translated string
+* Minor cosmetic fix
+* Stop requiring six as a depdendency
+* Hash settings to prevent overwriting of someone else's changes
+* Move screenshot to the top of the doc index
+* Make the config object lazy for old Djangos
+* Updated packaging setup
+* Be a good Python citizen and call super
+* Simplified settings
+* Added Sphinx docs. Fixes issue #48
+* Get rid of work around for setuptools bug
+* Because computers
+* Add note about being able to use django-redis' connection for constance
+* Raise an exception if an unsupported config type is used
+* Revert "add admin ui support for constance keys as lists"
+* Moved South migrations out of the way and added Django migrations
+* Renamed config module to base to prevent ambiguity
+* Added database cache autofill feature
+* Fix padding in admin table
+* Fix an import error on Django master
+* Hide the unwanted test envs in the travis config
+* Don't run py26 tests on Django >= 1.7
+* Test fixes to run on Django 1.7
+* Specified coverage config
+* Add .tox to gitignore
+* Use tox variable for django-admin.py location
+* Allow the use of which in tox
+* Cosmetic fix
+* Stop shipping subpackages of tests
+* Stop using setup.py for running the tests
+* Only use the external discover runner old Djangos
+* Added missing script again to Travis config
+* Added tox configuration
+* Allow tests to run on django 1.6+
+* Updated example for modern django
+* Fixed AppRegistryNotReady exception on runserver on Django 1.7rc2
+* Add translation to the app name
+* Fix one case
+* Russian translation
+* Updated the build matrix
+* add Czech localization
+* Update admin.py
+* Use app framework for initializing in Django 1.7
+* fix typo
+* add translation for zh_CN
+* i18n verbose_name_plural for admin home page
+* fix basestring in python 3
+* Localization in Italian
+* Fix typo
+* add admin ui support for constance keys as lists
+* Fixed discard cache on set value (key prefix was missing)
+* Model Meta object_name. Fix for 1.6 admin
+* zip_safe=False to fix issue w/ setuptool installs
+* Migration tweak to fix a failure in switching column types for key
+* No need to serve user-generated uploads
+* Fixed admin statics in example project
+* Fixed typo in README. Closes #34
+* Added setup.cfg to make sure the whl file is built for py 2 and 3
+
+0.6
+---
+
+* Bumped version to 0.6 and updated changelog
+* Fixed import error
+* Actually set STATIC_ROOT
+* Added some required settings
+* Added an own static template tag, sigh
+* Added forgotten staticfiles
+* Don't use admin_static template tag library for 1.3.x
+* Proper matrix exclude
+* More test fixes
+* Added all test requirements
+* Fixed typo
+* Please the PEP8 gods
+* More py3k changes
+* First stab at Python 3 support
+* Updated changelog, authors and version
+* Robust key fetching
+* fixed template typo in readme
+* Fixed a couple of things in the README
+
+0.5
+---
+
+* Added detailed trove classifiers
+* Added myself as maintainer
+* Added backend specific install methods
+* Updated translation, added a English base translation
+* Minor bugfix in README
+* Bumped to 0.5
+* Added changelog
+* Use django-nose just to be a little less exotic
+* Added travis config
+* Added test.db to gitignore
+* Added South migration to make the key field an unique CharField
+* Added initial South migration
+* Create fake change_config permission to be able to check for it if needed
+* Minor fix
+* Refactored tests to use django-discover-runner and not an own testproject anymore
+* Fixed the prefix handling
+* Added ability to prefix database values. Fixes #24
+* Added ability to specify the redis connection parameter as an URL. Fixes #26
+* Add note about the new CONSTANCE_SUPERUSER_ONLY setting
+* Added note about CONSTANCE_DATABASE_CACHE_BACKEND. Fixes #25
+* add dist/ to ignore list
+* send message with level SUCCESS instead of INFO
+* add build/ temp directory to ignore list
+* Bumped version up a notch
+* 1.5 compatibility‎ (meta.swapped)
+* add Polish translation
+* option to allow non-superusers to update settings
+* django 1.4 depreciation
+* remove unused import
+* django 1.4 compatibility
+* allow empty values
+* allow empty strings in admin
+* solved the unique key/index for the database backend
+* made compatible with Django 1.4 and Django dev
+
+0.4
+---
+
+* Version 0.4
+* Documentation typo. closes #11
+* allow translation of the help_text and add german translations
+* Fix icon path for Django 1.4
+* Fixed broken manifest template on Windows. Refs #8
+
+0.3
+---
+
+* version 0.3
+* adding requirements file
+* update admin url for 1.4 (root_path)
+* update admin url for 1.4
+* Fix DatabaseBackend clear
+* __dir__ in config.py now return list
+* streamlined ugettext
+* fix psycopg2 "can't adapt" error on save of a config. value from the admin pages
+* added a test for the failing missing keys
+* fixed a serious bug with the default values
+* streamlined ugettext
+* fix psycopg2 "can't adapt" error on save of a config. value from the admin pages
+* added a test for the failing missing keys
+* fixed a serious bug with the default values
+* Fix error: request into function
+* Change permission
+* link to correct master branch
+* test runner compatibility with django 1.4
+* We are using git now :-)
+* fixed? problem with loads and None values
+* django 1.3 compatibility
+* Fixed docs to mention CONSTANCE_BACKEND and close #1
+* Updated description to mention constance supports multiple backends
+* Fixed a few typos in the README
+
+0.2
+---
+
+* updated project homepage to github
+* version bump (0.2)
+* Fixed a minor issues with redis-py insistence on a args as lists
+* Re-added empty models.py
+* Removed stale file
+* Enabled database backend to properly require a cache backend that works in cross-process environments. This adds an optional setting CONSTANCE_DATABASE_CACHE_BACKEND
+* Added mget method to base backend to fetch all keys in one fell swoop, instead of one by one. Especially useful in the admin
+* Refactored prefix handling in redis backend slightly
+* Added __unicode__ to Constance model
+* Renamed redis backend module to redisd to prevent import conflicts with redis-py
+* Fixed: test runner
+* added an example project
+* Fixed a few typos in the README
+* Added myself to authors file
+* Update README extensively with new and old features
+* Raise an ImproperlyConfigured exception if the Redis backend is used (default) and redis-py can't be found
+* Refactored backend system slightly to have a nicer directory structure. Using the database backend now only requires to add 'constance.backends.database' to INSTALLED_APPS and setting CONSTANCE_BACKEND to 'constance.backends.database.DatabaseBackend'. Also reverted default backend to being the Redis backend
+* Abstracted constance backends to and added a cached database backend. Moved around the settings code and simplified the module loading
+* fixed the README
+* added screenshots
+* updated admin tests
+* fixed: time field instance of datetime.time
+* refatored test project
+* added tests for admin changelist
+* Added tests for new field types
+* Added constance.context_processors.config for easy access to the values
+* Fix bug regarding ordering
+* Updated template to fit original admin style and added helper variable to check if value differs from its default
+* Marked a few strings for translation and localize the values passed to the changelist
+* A few cleanups of the admin class
+* Added additional value types (unicode, date, time)
+* Sorted imports a bit
+* typo
+* fixed setup.py bdist_rpm
+* updated setup.py
+* added a license
+* added screenshots to the description
+* changed some display settings
+* added tests for other types
+* merge
+* setup: exclude tests from build
+* moved settings
+* embeded tests in setup.py
+* tests
+* added standalone test cases
+* Added basic tests
+* merge
+* improved admin UI (css, js)
+* updated README
+* added README
+* version bump
+* fixed packaging: templates included
+* fixed imports, optional django dependency
+* admin: improved UI
+* fixed: admin UI sorting keys
+* added support for dir() on config object
+* merge
+* admin: form saving and validating
+* hg ignore
+* added admin form draft
+* updated to work with pickle
+* decode/encode values by pickle
+* merge
+* added admin view interface
+* changed the default attribute access
+* hardcoded the version spec
+* fixed setattr on "rd" attribute
+* added setup.py
+* implemented the core functionality
+* initial
