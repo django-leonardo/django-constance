@@ -18,11 +18,11 @@ class Config(object):
         result = self._backend.get(key)
         # use Django settings as primary source of default
         # for example DEBUG if is in django settings will be set as default
-        if hasattr(django_settings, key) or result is None:
-            default = getattr(django_settings, key, default)
+        if hasattr(django_settings, key):
+            default = getattr(django_settings, key, result)
             setattr(self, key, default)
             return default
-        return result
+        return result or default
 
     def __setattr__(self, key, value):
         if key not in settings.CONFIG:

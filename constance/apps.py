@@ -13,7 +13,9 @@ class ConstanceConfig(AppConfig):
             from . import config
 
             for k in dir(config):
-                setattr(django_settings, k, getattr(config, k))
+                # just only if is not present in settings
+                if k not in dir(django_settings):
+                    setattr(django_settings, k, getattr(config, k))
         except Exception:
             # in some environment may failed
             # swallowed
