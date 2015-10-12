@@ -111,6 +111,7 @@ class ConstanceForm(SelfHandlingForm):
                 setattr(config, name, value)
                 # set to settings module
                 setattr(django_settings, name, value)
+        messages.success(request, _('Settings was successfully saved.'))
         return True
 
     def save(self):
