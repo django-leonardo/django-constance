@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.db.utils import ProgrammingError
 from django.db.models.signals import post_save
 
 try:
@@ -79,18 +80,23 @@ class DatabaseBackend(Backend):
                 value = self._model._default_manager.get(key=key).value
             except self._model.DoesNotExist:
                 pass
+            except ProgrammingError:
+                pass
             else:
                 if self._cache:
                     self._cache.add(key, value)
         return value
 
     def set(self, key, value):
-        constance, created = self._model._default_manager.get_or_create(
-            key=self.add_prefix(key), defaults={'value': value}
-        )
-        if not created:
-            constance.value = value
-            constance.save()
+        try:
+            constance, created = self._model._default_manager.get_or_create(
+                key=self.add_prefix(key), defaults={'value': value}
+            )
+            if not created:
+                constance.value = value
+                constance.save()
+        except ProgrammingError:
+            pass
 
     def clear(self, sender, instance, created, **kwargs):
         if self._cache and not created:
