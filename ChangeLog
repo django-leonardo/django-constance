@@ -1,6 +1,26 @@
 CHANGES
 =======
 
+1.0.0a3
+-------
+
+* Add support for custom fields. Thanks @PetrDlouhy
+
+1.0.0a2
+-------
+
+* Handle ProgrammingError when someone tries to access to key if databaes not present
+
+1.0.0a1
+-------
+
+* load dictionaries from strings
+* propagate config to django settings only if key is not present
+
+1.0.0a
+------
+
+* switch install to pbr and make leonardo-constance package
 * user info about save
 * typo fix
 * support for dict
