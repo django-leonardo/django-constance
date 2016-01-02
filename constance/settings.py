@@ -7,6 +7,8 @@ CONFIG = getattr(settings, 'CONSTANCE_CONFIG', {})
 
 CONFIG_GROUPS = getattr(settings, 'CONSTANCE_CONFIG_GROUPS', {})
 
+ADDITIONAL_FIELDS = getattr(settings, 'CONSTANCE_ADDITIONAL_FIELDS', {})
+
 DATABASE_CACHE_BACKEND = getattr(settings, 'CONSTANCE_DATABASE_CACHE_BACKEND',
                                  None)
 

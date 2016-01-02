@@ -56,6 +56,22 @@ after setting up value in the admin to False::
     settings.DEBUG
     -> False
 
+If you can add your custom field types, you can use the
+`CONSTANCE_ADDITIONAL_FIELDS` variable. Note that you must
+use later evaluated strings instead of direct classes:
+
+.. code-block:: python
+        CONSTANCE_ADDITIONAL_FIELDS = {
+           'yes_no_null_select': ['django.forms.fields.ChoiceField',
+              {
+              'widget': 'django.forms.Select',
+              'choices': (("-----", None), ("yes", "Yes"), ("no", "No"))
+              }],
+        }
+
+       CONSTANCE_CONFIG = {
+           'MY_SELECT_KEY': ('yes', 'select yes or no', 'yes_no_null_select'),
+       }
 
 .. image:: https://secure.travis-ci.org/jezdez/django-constance.png
     :alt: Build Status
