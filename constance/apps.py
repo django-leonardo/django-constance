@@ -19,15 +19,18 @@ class ConstanceConfig(AppConfig):
     verbose_name = _('Constance')
 
     def ready(self):
-        try:
-            # optionaly copy all live configuration to main settings
-            from . import config
 
-            for k in dir(config):
-                # just only if is not present in settings
+        # optionaly copy all live configuration to main settings
+        from . import config
+
+        for k in dir(config):
+            # just only if is not present in settings
+
+            try:
 
                 if k not in dir(django_settings):
                     setattr(django_settings, k, _load_dict(getattr(config, k)))
-        except:
-            # TODO: log me here
-            pass
+
+            except:
+                # TODO: log me here
+                pass
