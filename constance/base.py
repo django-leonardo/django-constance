@@ -1,5 +1,5 @@
 from . import settings, utils
-from django.conf import settings as django_settings
+from leonardo import settings as django_settings
 
 
 class Config(object):
@@ -10,17 +10,20 @@ class Config(object):
         super(Config, self).__setattr__('_backend',
             utils.import_module_attr(settings.BACKEND)())
 
-    def __getattr__(self, key):
+    def get_default(self, key):
+
         try:
             default = settings.CONFIG[key][0]
         except KeyError:
             raise AttributeError(key)
+
+        return default
+
+    def __getattr__(self, key):
         result = self._backend.get(key)
         # use Django settings as primary source of default
         # for example DEBUG if is in django settings will be set as default
-        if hasattr(django_settings, key):
-            return getattr(django_settings, key, result)
-        return result or default
+        return getattr(django_settings, key, result or self.get_default(key))
 
     def __setattr__(self, key, value):
         if key not in settings.CONFIG:
