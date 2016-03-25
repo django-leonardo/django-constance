@@ -19,7 +19,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from leonardo.forms import Layout, SelfHandlingForm, Tab, TabHolder
 
-from .forms import JSONTextArea
+from .forms import JSONTextArea, JsonField
 from . import LazyConfig, settings
 
 try:
@@ -45,7 +45,7 @@ STRING_LIKE = (fields.CharField, {
 })
 
 
-DICT_LIKE = (fields.CharField, {
+DICT_LIKE = (JsonField, {
     'widget': JSONTextArea(attrs={'rows': 10, 'cols': 30}),
     'required': False,
 })
@@ -131,9 +131,9 @@ class ConstanceForm(SelfHandlingForm):
         self.initial['version'] = version_hash.hexdigest()
 
     def handle(self, request, data):
-        for name in data.keys():
+        for name in self.cleaned_data.keys():
             if not name == "version":
-                value = data.get(name, settings.CONFIG.get(name)[0])
+                value = self.cleaned_data.get(name, settings.CONFIG.get(name)[0])
                 setattr(config, name, value)
                 # set to settings module
                 setattr(django_settings, name, value)
