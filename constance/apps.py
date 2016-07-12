@@ -7,7 +7,7 @@ import json
 
 def _load_dict(value):
     try:
-        value = json.loads(value)
+        return json.loads(value)
     except:
         # TODO log me here
         pass
@@ -27,9 +27,13 @@ class ConstanceConfig(AppConfig):
             # just only if is not present in settings
 
             try:
-
                 if k not in dir(django_settings):
-                    setattr(django_settings, k, _load_dict(getattr(config, k)))
+
+                    # get value from backend
+                    value = config._backend.get(k)
+
+                    if value is not None:
+                        setattr(django_settings, k, _load_dict(value))
 
             except:
                 # TODO: log me here

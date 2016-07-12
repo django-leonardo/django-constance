@@ -1,5 +1,5 @@
 from . import settings, utils
-from leonardo import settings as django_settings
+from django.conf import settings as django_settings
 
 
 class Config(object):
