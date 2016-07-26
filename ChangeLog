@@ -1,6 +1,34 @@
 CHANGES
 =======
 
+* fix global django keys
+
+1.0.0a8
+-------
+
+* Fix changing defaults from settings
+
+1.0.0a7
+-------
+
+* Fix saving dictionaries
+
+1.0.0a6
+-------
+
+* Use leonardo settings instead of django settings
+
+1.0.0a5
+-------
+
+* Catch errors for one field instead of all
+
+1.0.0a4
+-------
+
+* Just defaults
+* Update changelog
+
 1.0.0a3
 -------
 
@@ -16,10 +44,6 @@ CHANGES
 
 * load dictionaries from strings
 * propagate config to django settings only if key is not present
-
-1.0.0a
-------
-
 * switch install to pbr and make leonardo-constance package
 * user info about save
 * typo fix
@@ -40,7 +64,7 @@ CHANGES
 * base support for grouping
 * pep8 cleanup
 * Fixed model creation for Django1.8 ContentType change
-* master Added spanish translation
+* master  Added spanish translation
 * Increased speed of builds
 
 1.0.1
