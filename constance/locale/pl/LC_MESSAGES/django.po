@@ -1,48 +1,56 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: django-constance\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-27 19:05+0100\n"
+"POT-Creation-Date: 2016-07-29 18:51+0200\n"
 "PO-Revision-Date: 2014-11-27 18:13+0000\n"
 "Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/django-constance/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/django-constance/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:72
+#: admin.py:117
 #, python-format
 msgid ""
 "Constance doesn't support config values of the type %(config_type)s. Please "
 "fix the value of '%(name)s'."
 msgstr ""
 
-#: admin.py:91
+#: admin.py:140
+#, fuzzy
+#| msgid "Live settings updated successfully."
+msgid "Settings was successfully saved."
+msgstr "Parametry zostały zaktualizowane"
+
+#: admin.py:154
 msgid ""
 "The settings have been modified by someone else. Please reload the form and "
 "resubmit your changes."
 msgstr ""
 
-#: admin.py:129
+#: admin.py:193
 msgid "Live settings updated successfully."
 msgstr "Parametry zostały zaktualizowane"
 
-#: admin.py:134
+#: admin.py:198
 msgid "Constance config"
 msgstr "Konfiguracja Constance"
 
-#: admin.py:177
+#: admin.py:243
 msgid "config"
 msgstr ""
 
-#: apps.py:9
+#: apps.py:20
 msgid "Constance"
 msgstr ""
 
@@ -54,26 +62,22 @@ msgstr "parametr"
 msgid "constances"
 msgstr "parametry"
 
-#: templates/admin/constance/change_list.html:50
-msgid "Name"
-msgstr "Nazwa"
-
-#: templates/admin/constance/change_list.html:51
-msgid "Default"
-msgstr "Domyślnie"
-
-#: templates/admin/constance/change_list.html:52
-msgid "Value"
-msgstr "Wartość"
-
-#: templates/admin/constance/change_list.html:53
-msgid "Is modified"
-msgstr "Zmodyfikowana"
-
-#: templates/admin/constance/change_list.html:79
+#: templates/admin/constance/change_list.html:45
 msgid "Save"
 msgstr "Zapisz"
 
-#: templates/admin/constance/change_list.html:89
+#: templates/admin/constance/change_list.html:53
 msgid "Home"
 msgstr "Początek"
+
+#~ msgid "Name"
+#~ msgstr "Nazwa"
+
+#~ msgid "Default"
+#~ msgstr "Domyślnie"
+
+#~ msgid "Value"
+#~ msgstr "Wartość"
+
+#~ msgid "Is modified"
+#~ msgstr "Zmodyfikowana"

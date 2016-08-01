@@ -1,6 +1,10 @@
 CHANGES
 =======
 
+1.0.0.0a9
+---------
+
+* Update authors
 * fix global django keys
 
 1.0.0a8
